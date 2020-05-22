@@ -1,0 +1,19 @@
+body {
+    background-color: bfc0c0 !important;
+    color: #4f5d75 !important;
+}
+
+.main-page {
+    margin-top: 72px;
+    margin-left: 24px !important;
+    width: 50vw !important;
+    float: left;
+}
+
+.spacer {
+    height: 12px;
+}
+
+.btn-right {
+    margin-left: 24px !important;
+}
