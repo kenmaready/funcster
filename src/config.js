@@ -1,5 +1,5 @@
 const BACKEND = {
-    baseUrl: 'http://localhost:5000'
+    baseUrl: 'https://funcster-api.herokuapp.com/'
 };
 
 export { BACKEND };
