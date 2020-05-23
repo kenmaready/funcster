@@ -11,7 +11,6 @@ class home extends Component {
 
     render() {
         const { isAuthenticated, user, loading } = this.context;
-
         return (
             <div className="main-page container-fluid"> 
 

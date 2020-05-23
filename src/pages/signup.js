@@ -17,8 +17,7 @@ class signup extends Component {
 
     submitSignup = event => {
         event.preventDefault();
-    
-        axios.get(`${BACKEND.baseUrl}/`)
+        axios.get(`${BACKEND}/`)
         .then(response => {
             console.log('response received...')
             console.log(response.data.message)
