@@ -12,17 +12,29 @@ import { BACKEND } from '../config';
 
 class signup extends Component {
     state = {
+        username: '',
+        email: '',
+        password: '',
         usertype: this.props.match.params.usertype
+    }
+
+    handleChange = (event) => {
+        this.setState({ [event.target.name]: event.target.value })
     }
 
     submitSignup = event => {
         event.preventDefault();
-        axios.get(`${BACKEND}/`)
+        axios.post(`${BACKEND}/signup`, {
+            username: this.state.username,
+            email: this.state.email,
+            password: this.state.password,
+            usertype: this.state.usertype
+        })
         .then(response => {
             console.log('response received...')
-            console.log(response.data.message)
+            console.log(response)
             return {
-                response: response.data.message
+                response: response
             };
         })
         .then( response => history.push("/"))
@@ -37,15 +49,30 @@ class signup extends Component {
                 <Form>
                     <FormGroup controlId="formUsername">
                         <Form.Label>Username:</Form.Label>
-                        <Form.Control type="text" placeholder="enter a username" />
+                        <Form.Control 
+                        type="text" 
+                        value={this.state.username} 
+                        name="username"
+                        onChange={this.handleChange} 
+                        placeholder="enter a username" />
                     </FormGroup>
                     <FormGroup controlId="formEmail">
                         <Form.Label>Email address:</Form.Label>
-                        <Form.Control type="email" placeholder="enter your email address" />
+                        <Form.Control 
+                        type="email"
+                        value={this.state.email}
+                        name='email'
+                        onChange={this.handleChange} 
+                        placeholder="enter your email address" />
                     </FormGroup>
                     <FormGroup controlId="formPassword">
                         <Form.Label>Password:</Form.Label>
-                        <Form.Control type="password" placeholder="enter a password" />
+                        <Form.Control 
+                        type="password"
+                        value={this.state.password}
+                        name='password'
+                        onChange={this.handleChange} 
+                        placeholder="enter a password" />
                     </FormGroup>
                     <Button onClick={this.submitSignup} variant='primary' type='submit'>
                         Submit

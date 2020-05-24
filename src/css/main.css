@@ -17,3 +17,14 @@ body {
 .btn-right {
     margin-left: 24px !important;
 }
+
+.snippet-name-input {
+    background-color: aliceblue !important;
+    box-shadow: 2px 2px 8px #888888;
+}
+
+.snippet-editor {
+    background-color: aliceblue;
+    min-height: 20em;
+    box-shadow: 2px 2px 8px #888888;
+}
