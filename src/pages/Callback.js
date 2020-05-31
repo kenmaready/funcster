@@ -1,7 +1,7 @@
-import React, { Component } from 'react'
+import React, { Component } from "react";
+import Spinner from "react-bootstrap/Spinner";
 
 export default class Callback extends Component {
-
     componentDidMount() {
         // handle authentication if expected values are in URL:
         if (/access_token|id_token|error/.test(this.props.location.hash)) {
@@ -13,9 +13,11 @@ export default class Callback extends Component {
 
     render() {
         return (
-            <div className="main-page">
-                <h4>Logging you into funcster.  Just a sec...</h4>
-            </div>
-        )
+            <Spinner animation="border" variant="primary" role="status">
+                <span className="sr-only">
+                    <h4>Twiddling thumbs ... just a sec.</h4>
+                </span>
+            </Spinner>
+        );
     }
 }

@@ -15,12 +15,26 @@ body {
 }
 
 .btn-right {
-    margin-left: 24px !important;
+    margin-left: 12px !important;
 }
 
 .snippet-name-input {
     background-color: aliceblue !important;
     box-shadow: 2px 2px 8px #888888;
+}
+
+.snippet-card {
+    margin-top: 3px;
+    padding: 3px;
+}
+
+.snippet-card-icon {
+    float: right;
+}
+
+.snippet-card:hover {
+    background-color: aliceblue;
+    cursor: pointer;
 }
 
 .snippet-editor {

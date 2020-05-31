@@ -1,7 +1,6 @@
-import React, { Component, useState } from "react";
+import React, { Component } from "react";
 import axios from "axios";
 
-import history from "../utils/history";
 import { BACKEND } from "../config";
 
 class Coders extends Component {
