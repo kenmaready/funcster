@@ -1,22 +1,19 @@
 import React, { Component } from "react";
 import { Router, Route, Switch } from "react-router-dom";
-import PulseLoader from "react-spinners/PulseLoader";
 import history from "./utils/history";
 import "./css/main.css";
 import Home from "./pages/Home";
 import Callback from "./pages/Callback";
 import login from "./pages/login";
 import signup from "./pages/signup";
-import snippet from "./pages/snippet";
-import Mentors from "./pages/Mentors";
-import Coders from "./pages/Coders";
 import Navbar from "./components/Navbar";
 import Loading from "./components/Loading";
-import SnippetEditor from "./components/SnippetEditor";
+import SnippetEditor from "./pages/SnippetEditor";
+import Error from "./pages/error";
 
 import AuthRoute from "./AuthRoute";
-import Auth from "./Auth/Auth";
 import AuthContext from "./AuthContext";
+import auth from "./utils/auth";
 
 // import login from './pages/login'
 // import signup from './pages/signup'
@@ -26,7 +23,7 @@ class App extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            auth: new Auth(history), // note that pluralsight tutorial deals with his very differently
+            auth: auth, // note that pluralsight tutorial deals with his very differently
             tokenRenewalComplete: false,
         };
     }
@@ -56,7 +53,7 @@ class App extends Component {
                         <Route
                             exact
                             path="/"
-                            render={(props) => <Home auth={auth} {...props} />}
+                            render={(props) => <Home {...props} />}
                         />
                         <Route
                             exact
@@ -71,19 +68,16 @@ class App extends Component {
                             path={`/signup/:usertype`}
                             component={signup}
                         />
-                        <Route exact path="/snippet" component={snippet} />
                         <AuthRoute
                             exact
-                            path="/mentors"
-                            component={Mentors}
-                            usertype="Coder"
-                        />
-                        <AuthRoute
-                            exact
-                            path="/coder/:userId/snippet/:snippetId"
+                            path="/snippet/:snippetId"
                             component={SnippetEditor}
                         />
-                        <AuthRoute exact path="/coders" component={Coders} />
+                        <Route
+                            exact
+                            path="/error/:errorCode"
+                            component={Error}
+                        />
                     </Switch>
                 </Router>
             </AuthContext.Provider>

@@ -1,20 +1,14 @@
 import React, { Component, Fragment } from "react";
+import { connect } from "react-redux";
 import { Navbar, Nav } from "react-bootstrap";
+
+import { login, logout, isAuthenticated } from "../redux/actions";
 import history from "../utils/history";
 
 class NavBar extends Component {
-    /*     componentDidMount() {
-        this.props.fetchAccountInfo();
-    }
 
-    handleLogout = () => {
-        this.props.logout();
-        history.push('/');
-    }
- */
     render() {
-        //const { isAuthenticated, loginWithRedirect, logout } = useAuth0();
-        const { login, logout, isAuthenticated } = this.props.auth;
+        const { login, logout, isAuthenticated } = this.props;
 
         const showNavLinks = (
             <div className="container-fluid">
@@ -24,7 +18,7 @@ class NavBar extends Component {
                         <Fragment>
                             <Nav.Link
                                 className="btn-right"
-                                onClick={() => logout()}
+                                onClick={logout}
                             >
                                 Logout
                             </Nav.Link>
@@ -33,7 +27,7 @@ class NavBar extends Component {
                         <Fragment>
                             <Nav.Link
                                 className="btn-right"
-                                onClick={() => login()}
+                                onClick={login}
                             >
                                 Login
                             </Nav.Link>
@@ -54,4 +48,4 @@ class NavBar extends Component {
     }
 }
 
-export default NavBar;
+export default connect(null, { login, logout, isAuthenticated })(NavBar);

@@ -18,23 +18,37 @@ body {
     margin-left: 12px !important;
 }
 
+.link-text:hover {
+    color: #0275d8;
+    cursor: pointer;
+}
+
 .snippet-name-input {
     background-color: aliceblue !important;
     box-shadow: 2px 2px 8px #888888;
 }
 
-.snippet-card {
+.select-card {
     margin-top: 3px;
     padding: 3px;
+    padding-left: 12px;
 }
 
-.snippet-card-icon {
-    float: right;
+.select-card-icon {
+    position: absolute;
+    top: 7px;
+    right: 12px;
+    color: #0275d8;
 }
 
-.snippet-card:hover {
-    background-color: aliceblue;
+.select-card:hover {
+    background-color: #0275d8;
+    color: white;
     cursor: pointer;
+}
+
+.select-card:hover .select-card-icon {
+    color: white;
 }
 
 .snippet-editor {

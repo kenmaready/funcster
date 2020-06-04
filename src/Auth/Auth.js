@@ -1,6 +1,7 @@
 import auth0 from "auth0-js";
 import axios from "axios";
-import { BACKEND } from "../config";
+import { BACKEND } from "../utils/config";
+import auth from "../utils/auth";
 
 const REDIRECT_ON_LOGIN = "redirect_on_login";
 
@@ -25,6 +26,7 @@ export default class Auth {
         });
     }
 
+
     login = () => {
         localStorage.setItem(
             REDIRECT_ON_LOGIN,
@@ -41,7 +43,6 @@ export default class Auth {
     };
 
     handleAuthentication = () => {
-        console.log("handleAuthentication has been called...");
         this.auth0.parseHash((err, authResult) => {
             if (authResult && authResult.accessToken && authResult.idToken) {
                 this.setSession(authResult);
@@ -86,6 +87,8 @@ export default class Auth {
                             profile.mentor = response.data.mentor;
                         if (response.data.snippets)
                             profile.snippets = response.data.snippets;
+                        if (response.data.coders)
+                            profile.coders = response.data.coders;
                     })
                     .then((response) => {
                         this.userProfile = profile;
@@ -103,20 +106,18 @@ export default class Auth {
                 headers: { Authorization: `Bearer ${accessToken}` },
             })
             .then((response) => {
-                console.log(response.data);
                 const snippet = {
                     id: response.data.id,
                     name: response.data.snippet_name,
                     code: response.data.code,
                     coderId: response.data.coder_id,
                     needsReview: response.data.needs_review,
-                    comments: response.data.comments
+                    comments: response.data.comments,
                 };
-                this.snippet = snippet
+                this.snippet = snippet;
                 cb(this.snippet);
             });
     };
-
 
     setSession = (authResult) => {
         _expiresAt = authResult.expiresIn * 1000 + new Date().getTime();
@@ -128,11 +129,6 @@ export default class Auth {
 
     isAuthenticated() {
         return new Date().getTime() < _expiresAt;
-    }
-
-    userHasRole(role) {
-        //TODO: Implement userHasRole to check whether user is Coder or Mentor
-        return true;
     }
 
     renewToken(cb) {

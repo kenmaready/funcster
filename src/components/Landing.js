@@ -13,7 +13,7 @@ class Landing extends Component {
                 <p>
                     funcster is a snippet library and reviewing platform for
                     python functions and classes. Store your functions and
-                    classes in a searchable library, and get a mentor to review
+                    classes for review and re-use, and get a mentor to review
                     and edit your code.
                 </p>
                 <h4>sign up and get started!</h4>

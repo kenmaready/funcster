@@ -1,52 +1,47 @@
 import React, { Component } from "react";
-
+import { connect } from "react-redux";
 import Landing from "../components/Landing";
-import Loading from '../components/Loading';
+import Loading from "../components/Loading";
 import CoderHome from "../components/CoderHome";
 import MentorHome from "../components/MentorHome";
 
+import { isAuthenticated, getProfile } from "../redux/actions";
+
 class Home extends Component {
-    state = {
-        usertype: null,
-        profile: null,
-        error: "",
-    };
 
     componentDidMount() {
-        if (this.props.auth.isAuthenticated()) {
+        if (this.props.isAuthenticated()) {
             this.getUser();
         }
     }
 
     getUser() {
-        this.props.auth.getProfile((profile, error) => {
-            this.setState({ profile, error });
-            this.setState({ usertype: profile.usertype });
-            //axios.get(`${BACKEND}/`);
-        });
+        this.props.getProfile();
     }
 
     render() {
-        const { isAuthenticated } = this.props.auth;
-        const { profile } = this.state;
+        const { isAuthenticated } = this.props;
+        const { profile } = this.props.user;
 
         return (
             <div className="main-page container-fluid">
                 {!isAuthenticated() && <Landing />}
-                {isAuthenticated() && !profile?.usertype && (
-                    <Loading />
-                )}
+                {isAuthenticated() && !profile?.usertype && <Loading />}
                 {isAuthenticated() &&
                     profile &&
                     profile.usertype &&
                     (profile.usertype === "Coder" ? (
-                        <CoderHome profile={profile} />
+                        <CoderHome auth={this.props.auth} />
                     ) : (
-                        <MentorHome profile={profile} />
+                        <MentorHome auth={this.props.auth} />
                     ))}
             </div>
         );
     }
 }
 
-export default Home;
+const mapStateToProps = (state) => ({
+    user: state.user,
+});
+
+export default connect(mapStateToProps, { isAuthenticated, getProfile })(Home);

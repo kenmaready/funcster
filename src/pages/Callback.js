@@ -1,11 +1,14 @@
 import React, { Component } from "react";
+import { connect } from 'react-redux';
 import Spinner from "react-bootstrap/Spinner";
 
-export default class Callback extends Component {
+import { handleAuthentication } from '../redux/actions';
+
+class Callback extends Component {
     componentDidMount() {
         // handle authentication if expected values are in URL:
         if (/access_token|id_token|error/.test(this.props.location.hash)) {
-            this.props.auth.handleAuthentication();
+            this.props.handleAuthentication();
         } else {
             throw new Error("Invalid callback URL received from auth0");
         }
@@ -21,3 +24,5 @@ export default class Callback extends Component {
         );
     }
 }
+
+export default connect(null, { handleAuthentication })(Callback)

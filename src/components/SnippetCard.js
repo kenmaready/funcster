@@ -1,12 +1,12 @@
 import React, { Component } from "react";
-import { Link } from "react-router-dom";
 import Card from "react-bootstrap/Card";
-import { FileCheck, FileText } from "react-bootstrap-icons";
+import { FileText } from "react-bootstrap-icons";
+
 import history from "../utils/history";
 
 class SnippetCard extends Component {
     handleSnippetClick = (snippetId) => {
-        history.push(`/coder/${this.props.userId}/snippet/${snippetId}`);
+        history.push(`/snippet/${snippetId}`);
     };
 
     render() {
@@ -14,7 +14,7 @@ class SnippetCard extends Component {
 
         return (
             <Card
-                className="snippet-card"
+                className="select-card"
                 border="primary"
                 onClick={() => {
                     this.handleSnippetClick(snippet.id);
@@ -22,8 +22,9 @@ class SnippetCard extends Component {
             >
                 <div>
                     {snippet.snippet_name}
-                    {snippet.comments && (
-                        <FileText className="snippet-card-icon" />
+                    {/*if snippet has comments & a Coder is viewing the list, add comment icon to card*/}
+                    {snippet.comments && this.props.usertype === "Coder" && (
+                        <FileText className="select-card-icon" />
                     )}
                 </div>
             </Card>

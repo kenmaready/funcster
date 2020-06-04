@@ -1,3 +1,6 @@
+// Currently not used, relying on Universal Login from auth0
+// Would implement in a later version
+
 import React, { Component } from 'react'
 
 class login extends Component {

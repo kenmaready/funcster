@@ -1,15 +1,20 @@
-import React, { Component, Fragment } from "react";
+import React, { Component } from "react";
 import { Link } from "react-router-dom";
+import { connect } from "react-redux";
 import Card from "react-bootstrap/Card";
 
-import history from "../utils/history";
 import SnippetCard from "./SnippetCard";
-import SnippetEditor from "./SnippetEditor";
+import Loading from "./Loading";
+import Mentors from "./Mentors";
+import history from "../utils/history";
 
-export default class CoderHome extends Component {
-    handleClick = (event) => {
-        event.preventDefault();
-        console.log("I got clicked!");
+class CoderHome extends Component {
+    state = {
+        selectingMentor: false,
+    };
+
+    handleShowMentors = (event) => {
+        this.setState({ selectingMentor: !this.state.selectingMentor });
     };
 
     handleSnippetClick = (snippetId) => {
@@ -17,23 +22,27 @@ export default class CoderHome extends Component {
     };
 
     render() {
-        const { profile } = this.props;
-        console.log(profile);
+        const { profile } = this.props.user;
 
-        const showSnippets = profile.snippets.map((snippet) => {
-            return (
-                <SnippetCard
-                    key={snippet.id}
-                    snippet={snippet}
-                    userId={this.props.profile.userId}
-                />
+        const showSnippets =
+            profile && profile.snippets ? (
+                profile.snippets.map((snippet) => {
+                    return (
+                        <SnippetCard
+                            key={snippet.id}
+                            snippet={snippet}
+                            usertype={"Coder"}
+                        />
+                    );
+                })
+            ) : (
+                <Loading />
             );
-        });
+
         return (
             <div className="container-fluid">
-                <h4>Welcome back, {this.props.profile.nickname}</h4>
+                <h4>Welcome back, {profile.username}</h4>
                 <br />
-
                 {/* Mentor Card Section */}
                 <Card
                     as={"div"}
@@ -53,23 +62,26 @@ export default class CoderHome extends Component {
                                     Your mentor is{" "}
                                     <strong>{profile.mentor}</strong>.
                                 </p>
-                                <Link to="/">
-                                    <small>
-                                        Click here to select new mentor
-                                    </small>
-                                </Link>
+                                <small
+                                    className="link-text"
+                                    onClick={this.handleShowMentors}
+                                >
+                                    Click here to select new mentor
+                                </small>
                             </Card.Text>
                         ) : (
-                            <Card.Text>
+                            <Card.Text as="div">
                                 <p>You do not currently have a mentor.</p>
                                 <br />
-                                <small>
-                                    <Link to={"/"}>
-                                        Click here to select a mentor
-                                    </Link>
+                                <small
+                                    className="link-text"
+                                    onClick={this.handleShowMentors}
+                                >
+                                    Click here to select a mentor
                                 </small>
                             </Card.Text>
                         )}
+                        {this.state.selectingMentor && <Mentors />}
                     </Card.Body>
                 </Card>
                 <br />
@@ -92,9 +104,7 @@ export default class CoderHome extends Component {
                                 </p>
                             )}
                             <small>
-                                <Link
-                                    to={`/coder/${this.props.profile.userId}/snippet/new`}
-                                >
+                                <Link to={`/snippet/new`}>
                                     Click here to create a new code snippet
                                 </Link>
                             </small>
@@ -105,3 +115,9 @@ export default class CoderHome extends Component {
         );
     }
 }
+
+const mapStateToProps = (state) => ({
+    user: state.user,
+});
+
+export default connect(mapStateToProps)(CoderHome);
