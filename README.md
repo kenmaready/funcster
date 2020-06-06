@@ -29,7 +29,7 @@ Also, for purposes of this review, I've published the .env file in the repositor
 
 After downloading/cloning the projects, you should run `npm install` to be sure that you have the required dependencies available in your environment.
 
-You will also need to set some environment variables in order to get the app to work. You can do so manually in your CLI using 'export' (or 'set' on Windows machines) for each of the variables, or you can create a file named '.env' in the root folder for this project and define the variables in that file. If you use the second menthod, in order to have flask automatically pick up the variables in your .env file, you will need to have `dotenv` installed locally to use the .env file, so if you do not have it, run `pip install python-dotenv` from your command line to install it. After installing dotenv, Flask will automatically run the .env file each time you use `flask run`.
+You will also need to set some environment variables in order to get the app to work. You can do so manually in your CLI using 'export' (or 'set' on Windows machines) for each of the variables, or you can create a file named '.env' in the root folder for this project and define the variables in that file.
 
 The environment variables you will need to set are:
 
@@ -48,7 +48,9 @@ Once requirements have been installed and environment variables defined, run the
 
 Funcster is built using:
 
--   [**React**](https://reactjs.org/)
+-   [**React**](https://reactjs.org/), and specifically [`create-react-app`](https://create-react-app.dev/)
+-   [**React-Redux**](https://react-redux.js.org/)
+-   [**react-simple-code-editor**](https://www.npmjs.com/package/react-simple-code-editor)
 
 ### Main Files: Project Structure
 
