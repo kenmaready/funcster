@@ -35,9 +35,7 @@ body {
 }
 
 .select-card-icon {
-    position: absolute;
-    top: 7px;
-    right: 12px;
+    float: right;
     color: #0275d8;
 }
 

@@ -1,68 +1,92 @@
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+# </> funcster
 
-## Available Scripts
+![funcster logo](logo.png)
 
-In the project directory, you can run:
+## Introduction
 
-### `yarn start`
+Funcster is the front end of a capstone project for the Udacity Full-Stack Developer Nanodegree. The repository for the back end of the project is [here](https://github.com/kenmaready/funcster-api).
 
-Runs the app in the development mode.<br />
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
+funcster is a simple app allowing 'Coders' to post, store and edit snippets of python code in their own snippet library, and their 'Mentors' to view, revise and comment on that code. The front end has been built using [React](https://reactjs.org/) and uses [`react-redux`](https://react-redux.js.org/) as a state manager/store. [`react-bootstrap`](https://react-bootstrap.github.io/) is used for some minimal styling. The snippet editor is powered by [`react-simple-code-editor`](https://www.npmjs.com/package/react-simple-code-editor) which, in turn, is powered by [`prism-js`](https://prismjs.com/).
 
-The page will reload if you make edits.<br />
-You will also see any lint errors in the console.
+The project is currently deployed on heroku:
 
-### `yarn test`
+-   front end: [funcster.herokuapp.com](https://funcster.herokuapp.com/)
+-   back end/api: [funcster-api.herokuapp.com](https://funcster-api.herokuapp.com/)
 
-Launches the test runner in the interactive watch mode.<br />
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+## Overview
 
-### `yarn build`
+The application has two types of users: 'Mentors' and 'Coders'. Coders can write and save code snippets (python functions and classes), select a mentor and ask their mentor to review their code. Mentors can select coders and review code posted by their coders who have asked for review. When reviewing, Mentors can edit the code and can also leave notes for their coders.
 
-Builds the app for production to the `build` folder.<br />
-It correctly bundles React in production mode and optimizes the build for the best performance.
+Each Coder can only have one Mentor, but each Mentor can have many Coders. Each Coder can have many Snippets, but each Snippet belongs to one Coder.
 
-The build is minified and the filenames include the hashes.<br />
-Your app is ready to be deployed!
+### Udacity Reviewer Testing
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+For ease of reviewing, on the deployed app at heroku, I've created three Coder users (coder1, coder2 and coder3) and three Mentor users (mentor1, mentor2 and mentor3) which are already registered on auth0, each having the simple password '123456'. I've also left a console.log() of their access tokens within the deployed application, so if the tokens I provide you have expired or don't work when you try to review my app, you can go to the deployed front end at [funcster.herokuapp.com](https://funcster.herokuapp.com/), log in with a user and use chrome development tools to view the console and get a newly-generated valid access token. For example, you could log in with coder1 to get a "Coder" access token, and mentor1 to get a "Mentor" access token. Access tokens should remain valid for 24 hours.
 
-### `yarn eject`
+Also, for purposes of this review, I've published the .env file in the repository, so you will not need to set all the environment variables described below, they will be set for you if you have dotenv installed on your machine. There is a valid 'Coder' access token and a valid 'Mentor' access token in the .env file for the back end which you can use for testing.
 
-**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
+### Getting Started
 
-If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+After downloading/cloning the projects, you should run `npm install` to be sure that you have the required dependencies available in your environment.
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
+You will also need to set some environment variables in order to get the app to work. You can do so manually in your CLI using 'export' (or 'set' on Windows machines) for each of the variables, or you can create a file named '.env' in the root folder for this project and define the variables in that file. If you use the second menthod, in order to have flask automatically pick up the variables in your .env file, you will need to have `dotenv` installed locally to use the .env file, so if you do not have it, run `pip install python-dotenv` from your command line to install it. After installing dotenv, Flask will automatically run the .env file each time you use `flask run`.
 
-You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
+The environment variables you will need to set are:
 
-## Learn More
+```
+REACT_APP_AUTH0_DOMAIN=funcster.auth0.com
+REACT_APP_AUTH0_CLIENT_ID={ client ID for your application on auth0 }
+REACT_APP_AUTH0_CALLBACK_URL=http://localhost:3000/callback
+REACT_APP_AUTH0_AUDIENCE= { audience/identifier for your auth0 api (not your local back end) }
+REACT_APP_AUTH0_LOGOUT_RETURN=http://localhost:3000/
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+```
 
-To learn React, check out the [React documentation](https://reactjs.org/).
+Once requirements have been installed and environment variables defined, run the app by running `npm run dev` in the root folder. If run locally, the front end will be served on [http://localhost:3000](http://localhost:3000/).
 
-### Code Splitting
+### Technologies
 
-This section has moved here: https://facebook.github.io/create-react-app/docs/code-splitting
+Funcster is built using:
 
-### Analyzing the Bundle Size
+-   [**React**](https://reactjs.org/)
 
-This section has moved here: https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size
+### Main Files: Project Structure
 
-### Making a Progressive Web App
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app
-
-### Advanced Configuration
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/advanced-configuration
-
-### Deployment
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/deployment
-
-### `yarn build` fails to minify
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify
+```sh
+├── public *** includes the main html page (index.html), the favicon and some other minor files
+├── src
+    ├── Auth *** contains the authentification class to interact with auth0, with some additional
+    │            helpful methods for use with the app
+    ├── componenets *** React components used to render the information on pages (includes the
+    │                   NavBar, insets for the Home Page (Landing, CoderHome, MentorHome), 'Card'
+    │                   components used for listed items (MentorCard, CoderCard, SnippetCard), etc.)
+    ├── css *** custom css pages to be layered on top of the react-bootstrap used as the main css for
+    │           the app; includes prism.css, which comes with the prismjs module, used to render the
+    │           snippet editor, and main.css, which are all custom .css styles
+    ├── pages *** the pages for the application (includes Callback, Home, Signup and SnippetEditor)
+    ├── redux *** the application uses react-redux as a state manager/store. This folder contains the
+    │   │         usual redux infrastructure
+    │   ├── actions *** action creators (the functions called from coponents to change state and retrieve
+    │   │               information from the back end or auth0)
+    │   ├── reducers *** reducers (the functions that receive dispatches from the action creators and
+    │   │                  update the state/store appropriately)
+    │   └── types *** a utility file to define some constants to be used action creators and reducers
+    │
+    ├── utils
+    │   ├── auth.js *** instantiates and exports the auth object used throughout the app
+    │   ├── config.js *** exports the BACKEND constant to be used in axios calls throughout the app
+    │   └── history.js *** instantiates and exports the history object used throughout the app
+    ├── App.css *** small css file provided with create-react-app
+    ├── App.js *** the main App component which calls the other pages and components; this file includes
+    │              the basic roadmap to the app through the Router which directs the app to render
+    │              different pages based on the window.location
+    ├── AuthContext.js *** creates a context provider that was used early on to allow components to use
+    │                      the auth object; may be able to remove now that redux has been implemented
+    ├── AuthRoute.js *** a sort of component wrapper for routes requiring authentification; Authroute is
+    │                    itself a component and is called in the App.js file for certain routes
+    ├── index.js *** entry point for the javascript code for the app.  Sets up the redux store and provides
+    │                the App.js (and the entire front end) to the html page
+    ├── package-lock.json *** you know what this does (npm utility)
+    ├── package.json *** you know what this does too (npm utility, includes dependencies and useful scripts to be run using npm from command line)
+    └── README.md *** you're looking at it!
+```

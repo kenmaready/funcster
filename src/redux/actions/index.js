@@ -59,6 +59,80 @@ export const getProfile = () => (dispatch) => {
         });
 };
 
+export const getMentors = () => (dispatch) => {
+    dispatch({ type: MENTORS.LOADING });
+    axios
+        .get(`${BACKEND}/mentors`, {
+            headers: {
+                Authorization: `Bearer ${auth.getAccessToken()}`,
+            },
+        })
+        .then((response) => {
+            dispatch({
+                type: MENTORS.SUCCESS,
+                payload: response.data,
+            });
+        })
+        .catch((err) => console.error(err));
+};
+
+export const selectMentor = (userId, mentorId) => (dispatch) => {
+    dispatch({ type: MENTORS.LOADING });
+    axios
+        .patch(
+            `${BACKEND}/coder/${userId}/mentor`,
+            {
+                mentorId,
+            },
+            {
+                headers: {
+                    Authorization: `Bearer ${auth.getAccessToken()}`,
+                },
+            }
+        )
+        .then((response) => {
+            window.location.reload(false);
+        })
+        .catch((err) => console.error(err));
+};
+
+export const getAvailableCoders = () => (dispatch) => {
+    dispatch({ type: CODERS.LOADING });
+    axios
+        .get(`${BACKEND}/coders/available`, {
+            headers: {
+                Authorization: `Bearer ${auth.getAccessToken()}`,
+            },
+        })
+        .then((response) => {
+            dispatch({
+                type: CODERS.SUCCESS,
+                payload: response.data,
+            });
+        })
+        .catch((err) => console.log(err));
+};
+
+export const selectCoder = (userId, coderId) => (dispatch) => {
+    dispatch({ type: CODERS.LOADING });
+    axios
+        .patch(
+            `${BACKEND}/mentor/${userId}/coder`,
+            {
+                coderId,
+            },
+            {
+                headers: {
+                    Authorization: `Bearer ${auth.getAccessToken()}`,
+                },
+            }
+        )
+        .then((response) => {
+            window.location.reload(false);
+        })
+        .catch((err) => console.error(err));
+};
+
 export const getSnippet = (snippetId, cb) => (dispatch) => {
     dispatch({ type: SNIPPET.LOADING });
     const accessToken = auth.getAccessToken();
@@ -131,76 +205,18 @@ export const submitSnippet = (snippet, usertype, userId) => (dispatch) => {
     }
 };
 
-export const getMentors = () => (dispatch) => {
-    dispatch({ type: MENTORS.LOADING });
+export const deleteSnippet = (snippetId, userId) => (dispatch) => {
+    dispatch({ type: SNIPPET.LOADING });
     axios
-        .get(`${BACKEND}/mentors`, {
+        .delete(`${BACKEND}/snippet/${snippetId}`, {
+            data: {
+                blah: "blah",
+                coderId: userId,
+            },
             headers: {
                 Authorization: `Bearer ${auth.getAccessToken()}`,
             },
         })
-        .then((response) => {
-            dispatch({
-                type: MENTORS.SUCCESS,
-                payload: response.data,
-            });
-        })
-        .catch((err) => console.error(err));
-};
-
-export const selectMentor = (userId, mentorId) => (dispatch) => {
-    dispatch({ type: MENTORS.LOADING });
-    axios
-        .patch(
-            `${BACKEND}/coder/${userId}/mentor`,
-            {
-                mentorId,
-            },
-            {
-                headers: {
-                    Authorization: `Bearer ${auth.getAccessToken()}`,
-                },
-            }
-        )
-        .then((response) => {
-            window.location.reload(false);
-        })
-        .catch((err) => console.error(err));
-};
-
-export const getAvailableCoders = () => (dispatch) => {
-    dispatch({ type: CODERS.LOADING });
-    axios
-        .get(`${BACKEND}/coders/available`, {
-            headers: {
-                Authorization: `Bearer ${auth.getAccessToken()}`,
-            },
-        })
-        .then((response) => {
-            dispatch({
-                type: CODERS.SUCCESS,
-                payload: response.data,
-            });
-        })
-        .catch((err) => console.log(err));
-};
-
-export const selectCoder = (userId, coderId) => (dispatch) => {
-    dispatch({ type: CODERS.LOADING });
-    axios
-        .patch(
-            `${BACKEND}/mentor/${userId}/coder`,
-            {
-                coderId,
-            },
-            {
-                headers: {
-                    Authorization: `Bearer ${auth.getAccessToken()}`,
-                },
-            }
-        )
-        .then((response) => {
-            window.location.reload(false);
-        })
+        .then((response) => window.location.reload(false))
         .catch((err) => console.error(err));
 };

@@ -32,6 +32,7 @@ class CoderHome extends Component {
                             key={snippet.id}
                             snippet={snippet}
                             usertype={"Coder"}
+                            userId={profile.userId}
                         />
                     );
                 })

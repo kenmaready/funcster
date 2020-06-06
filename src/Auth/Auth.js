@@ -26,7 +26,6 @@ export default class Auth {
         });
     }
 
-
     login = () => {
         localStorage.setItem(
             REDIRECT_ON_LOGIN,

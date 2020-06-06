@@ -4,20 +4,14 @@ import history from "./utils/history";
 import "./css/main.css";
 import Home from "./pages/Home";
 import Callback from "./pages/Callback";
-import login from "./pages/login";
 import signup from "./pages/signup";
 import Navbar from "./components/Navbar";
 import Loading from "./components/Loading";
 import SnippetEditor from "./pages/SnippetEditor";
-import Error from "./pages/error";
 
 import AuthRoute from "./AuthRoute";
 import AuthContext from "./AuthContext";
 import auth from "./utils/auth";
-
-// import login from './pages/login'
-// import signup from './pages/signup'
-// import Navbar from './components/Navbar'
 
 class App extends Component {
     constructor(props) {
@@ -62,7 +56,6 @@ class App extends Component {
                                 <Callback auth={auth} {...props} />
                             )}
                         />
-                        <Route exact path="/login" component={login} />
                         <Route
                             exact
                             path={`/signup/:usertype`}
