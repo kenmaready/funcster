@@ -64,7 +64,7 @@ export default class Auth {
                 "No access token found. User is either logged out or access token has been removed from browser."
             );
         }
-        console.log("accessToken obtained: ", _accessToken);
+        //console.log("accessToken obtained: ", _accessToken);
         return _accessToken;
     };
 
